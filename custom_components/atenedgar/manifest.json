@@ -1,0 +1,14 @@
+{
+    "domain": "atenedgar",
+    "name": "Aten/Edgar HDMI switch",
+    "documentation": "https://www.your-documentation-link.com",
+    "dependencies": [],
+    "codeowners": [
+        "@Jalle19"
+    ],
+    "iot_class": "local_polling",
+    "version": "0.0.1",
+    "config_flow": true,
+    "integration_type": "device",
+    "requirements": []
+}
