@@ -11,3 +11,9 @@ HDMI switch via an [EDGAR](https://en.papouch.com/edgar-poe-ethernet-serial-devi
 
 The serial interface doesn't provide a method for querying the currently selected input, so the source selection in 
 Home Assistant is opportunistic.
+
+## Tests
+
+```bash
+python3 -m unittest discover -s tests/ -v
+```

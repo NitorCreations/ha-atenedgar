@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-2"?>
+<root xmlns="http://ww÷.papouch.com/xml/EDGAR_ETH/set">
+<set box="1" dhcp="0" ip="10.211.0.112" mask="255.255.252.0" gate="10.211.0.1" dip="0.0.0.0" wport="80" lport="8080"  comm="3" rip="0.0.0.0" rport="0" mtu="1400" keep="45"  />
+<set box="2" admset="0"  />
+<set box="5" domain="" ip="10.211.0.110" port="80" dir="rs232/" getscr="in" guid="" keyset="0"  />
+<set box="14" port="RS232" speed="1" mode="0" flow="0" timeout="0" byte="00"  />
+<set box="8" name="" lang="e" pwrout="0"  />
+<set box="12" type="Edgar ETH" mac="00:80:A3:E6:2E:75" fw="1.5"  />
+</root>
