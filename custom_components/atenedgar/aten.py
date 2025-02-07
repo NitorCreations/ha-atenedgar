@@ -11,7 +11,7 @@ class Aten:
         self.name = name
 
     async def select_source(self, source: int):
-        command = f"sw i{source}\n"
-        logger.info(f'Sending command "{command}"')
+        command = f"sw i0{source}\r\n"
+        logger.info(f'Sending command "{command.strip()}"')
 
         await self._edgar.set(command.encode().hex())
