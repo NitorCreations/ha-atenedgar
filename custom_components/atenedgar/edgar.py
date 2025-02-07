@@ -18,10 +18,9 @@ class Edgar:
         async with aiohttp.ClientSession(timeout=self._timeout) as session:
             try:
                 url = self.get_base_url()
-                logger.info(f"Requesting URL {url}")
+                logger.debug(f"Requesting URL {url}")
 
                 async with session.get(url) as response:
-                    logger.info(response)
                     return response.status == 200
             except (TimeoutError, aiohttp.ClientError) as e:
                 logger.error(e)
@@ -30,7 +29,7 @@ class Edgar:
     async def set(self, hex: str) -> int:
         async with aiohttp.ClientSession(timeout=self._timeout) as session:
             url = f"{self.get_base_url()}/set.xml?hex={hex}"
-            logger.info(f"Requesting URL {url}")
+            logger.debug(f"Requesting URL {url}")
 
             async with session.get(url) as response:
                 return response.status
