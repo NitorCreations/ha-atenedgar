@@ -7,8 +7,10 @@ from homeassistant.components.media_player import (
     MediaPlayerState,
 )
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.helpers.device_registry import DeviceInfo, format_mac
 
-from . import Aten, AtenEdgarConfigEntryRuntimeData
+from . import Aten, AtenEdgarConfigEntryRuntimeData, EdgarSettings
+from .const import DOMAIN
 
 logger = logging.getLogger(__name__)
 
@@ -17,12 +19,13 @@ async def async_setup_entry(hass, entry: ConfigEntry, async_add_entities):
     """Set up the  HDMI Switch media player from a config entry."""
     runtime_data: AtenEdgarConfigEntryRuntimeData = entry.runtime_data
 
-    async_add_entities([AtenHDMISwitch(runtime_data.aten)])
+    async_add_entities([AtenHDMISwitch(runtime_data.aten, runtime_data.edgar_settings)])
 
 
 class AtenHDMISwitch(MediaPlayerEntity):
-    def __init__(self, aten: Aten):
+    def __init__(self, aten: Aten, edgar_settings: EdgarSettings):
         self._aten = aten
+        self._edgar_settings = edgar_settings
 
         self._device_class = MediaPlayerDeviceClass.RECEIVER
         self._state = MediaPlayerState.PLAYING
@@ -36,8 +39,19 @@ class AtenHDMISwitch(MediaPlayerEntity):
         return self._device_class
 
     @property
+    def device_info(self) -> DeviceInfo:
+        return DeviceInfo(
+            identifiers={(DOMAIN, format_mac(self._edgar_settings.mac))},
+            configuration_url=f"http://{self._edgar_settings.ip}/",
+            manufacturer="Papouch",
+            model=self._edgar_settings.type,
+            sw_version=self._edgar_settings.fw,
+        )
+
+    @property
     def unique_id(self) -> str:
-        return "aten_hdmi_switch"
+        mac = format_mac(self._edgar_settings.mac)
+        return f"aten_hdmi_switch_via_edgar_{mac}"
 
     @property
     def state(self) -> MediaPlayerState:
